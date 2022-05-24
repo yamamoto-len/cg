@@ -1,0 +1,143 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/three@0.137.4/build/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.137.4/examples/js/controls/OrbitControls.js"></script>
+  </head>
+<body>
+ <script>
+      window.addEventListener('DOMContentLoaded', init);
+
+      function init() 
+      {
+        const width = 900
+        const height = 700;
+        
+        var renderer = new THREE.WebGLRenderer();
+        document.body.appendChild(renderer.domElement);
+        renderer.setSize(width, height);
+        renderer.shadowMap.enabled = true;
+        
+        const scene = new THREE.Scene();
+        
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        
+        camera.position.set(0, 0, 10);
+        
+        const controls = new THREE.OrbitControls(camera, document.body); 
+        
+        var directionalLight1 = new THREE.DirectionalLight(0x00FFFF);
+        directionalLight1.position.set(10, 10, 10);
+        
+        scene.add(directionalLight1);
+        
+        var directionalLight2 = new THREE.DirectionalLight(0x000000);
+        directionalLight2.position.set(-10, -10, 10);
+        
+        scene.add(directionalLight2);
+        
+        const gridHelper = new THREE.GridHelper(2,10);
+        scene.add(gridHelper);
+        const axisHelper = new THREE.AxisHelper(5);
+        scene.add(axisHelper);
+        
+        var planeGeometry = new THREE.PlaneGeometry(5,5,10,10);
+        var planeMaterial = new THREE.MeshBasicMaterial({color: 0xFF0000});
+        var plane = new THREE.Mesh(planeGeometry,planeMaterial);
+        plane.rotation.set( -Math.PI/2, 0, 0 );
+        plane.position.set(0,0,0);
+        scene.add(plane);
+        
+        //var material = new THREE.MeshPhongMaterial({ color: 0xFFFFFF });
+        
+        var head_g = new THREE.SphereGeometry( 0.45, 32, 32 );
+        var material = new THREE.MeshPhongMaterial({ color: 0xFFFFFF });
+        var head = new THREE.Mesh(head_g, material);
+        head.position.set(0,0.5,0);
+        
+        var body_g = new THREE.SphereGeometry( 0.6, 32, 32 );
+        var material = new THREE.MeshStandardMaterial({ color: 0x00FF00 });
+        var body = new THREE.Mesh( body_g, material);
+        body.scale.y =1.0;
+        body.scale.z =1.2;
+        body.position.set(0,-0.3,-0.3);
+        
+        var leg_g = new THREE.SphereGeometry( 0.25, 32, 32 );
+        var material = new THREE.MeshStandardMaterial({ color: 0x000000 });
+        var lleg = new THREE.Mesh( leg_g, material);
+        lleg.scale.z = 2.3;
+        lleg.scale.y = 0.5;
+        lleg.position.set(0.3,-0.8,0.2);
+        
+        var rleg = new THREE.Mesh( leg_g, material);
+        var material = new THREE.MeshStandardMaterial({ color: 0x000000 });
+        rleg.scale.z = 2.3;
+        rleg.scale.y = 0.5;
+        rleg.position.set(-0.3,-0.8,0.2);
+        
+        var win_g = new THREE.SphereGeometry( 0.7, 32, 32 );
+        var material = new THREE.MeshLambertMaterial({ color: 0x0000FF });
+        var lwin = new THREE.Mesh( win_g, material);
+        lwin.scale.x = 0.2;
+        lwin.scale.y = 0.5;
+        lwin.scale.z = 1.2;
+        lwin.rotation.x = -0.5;
+        lwin.rotation.z = 0.5;
+        lwin.position.set(0.5,-0.2,-0.5);
+        
+        var rwin = new THREE.Mesh( win_g, material);
+        var material = new THREE.MeshLambertMaterial({ color: 0x000000 });
+        rwin.scale.x = 0.2;
+        rwin.scale.y = 0.5;
+        rwin.scale.z = 1.2;
+        rwin.rotation.x = -0.5;
+        rwin.rotation.z = -0.5;
+        rwin.position.set(-0.5,-0.2,-0.5);
+        
+        var beak_g = new THREE.ConeGeometry( 0.1, 0.5, 32 );
+        var material_beak = new THREE.MeshToonMaterial({ color: 0xFFFFFF });
+        var beak = new THREE.Mesh( beak_g, material_beak);
+        beak.rotation.x = 1.8;
+        beak.position.set(0,0.4,0.6);
+        
+        var eye_g = new THREE.SphereGeometry( 0.08, 32, 32 );
+        var material_eye = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        var l_eye = new THREE.Mesh( eye_g, material_eye);
+        l_eye.position.set(0.15,0.6,0.35);
+        
+        var r_eye = new THREE.Mesh( eye_g, material_eye);
+        r_eye.position.set(-0.15,0.6,0.35);
+        
+        const pengin = new THREE.Group();
+        pengin.add(head);
+        pengin.add(body);
+        pengin.add(lleg);
+        pengin.add(rleg);
+        pengin.add(lwin);
+        pengin.add(rwin);        
+        pengin.add(beak);
+        pengin.add(l_eye);
+        pengin.add(r_eye);
+        pengin.position.set(0,1,0);
+        scene.add(pengin);
+        
+        const all = new THREE.Group();
+        all.add(pengin);
+        all.position.set(0,0,0);
+        scene.add(all); 
+        
+        update();
+        
+        function update() 
+        {
+          renderer.render(scene, camera);
+          requestAnimationFrame(update);
+          
+          //pengin.rotation.y += 0.005;;
+          
+          //all.rotation.y += 0.01;;
+        }
+      }
+    </script>
+</body>
+</html>
