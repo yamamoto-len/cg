@@ -52,6 +52,10 @@
         var texture = textureLoader.load("yamamoto-len/cg/img/face.jpg");
         var mat = new THREE.MeshPhongMaterial();
         mat.map = texture;
+        
+        var bump = textureLoader.load("stone-bump.jpg");
+        mat.bumpMap = bump;
+        mat.bumpscale = 0.2;
 
         // 箱を作成
         var geometry = new THREE.BoxGeometry(1, 1, 1);
