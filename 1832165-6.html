@@ -45,7 +45,12 @@
     
     var geometry = new THREE.BoxGeometry(1, 5, 1);
     var box = new THREE.Mesh(geometry, mat);
-    box.position.set(1, 0, 0);
+    box.position.set(1, 2.5, 0);
+    scene.add(box);
+    
+    var geometry = new THREE.BoxGeometry(1, 5, 1);
+    var box = new THREE.Mesh(geometry, mat);
+    box.position.set(-1, 2.5, 0);
     scene.add(box);
     
     update();
