@@ -43,15 +43,26 @@
     var mat = new THREE.MeshPhongMaterial();
     mat.map = texture;
     
-    var geometry = new THREE.BoxGeometry(1, 5, 1);
+    var geometry = new THREE.BoxGeometry(1, 3, 1);
     var box = new THREE.Mesh(geometry, mat);
     box.position.set(1, 2.5, 0);
     scene.add(box);
     
-    var geometry = new THREE.BoxGeometry(1, 5, 1);
+    var geometry = new THREE.BoxGeometry(1, 3, 1);
     var box = new THREE.Mesh(geometry, mat);
     box.position.set(-1, 2.5, 0);
     scene.add(box);
+    
+    var textureLoader = new THREE.TextureLoader();
+    var texture0 = textureLoader.load("tree0.png");
+    const material0 = new THREE.SpriteMaterial({ map: texture0,});
+    
+    const sprite0 = new THREE.Sprite(material0);
+    sprite0.position.x = 1.5;
+    sprite0.position.y = 0;
+    sprite0.position.z = 0;
+    sprite0.scale.set(100,100,100);
+    scene.add(sprite0);
     
     update();
     
